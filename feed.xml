@@ -3,75 +3,14 @@
     <title>Digital Garden</title>
     <link href="https://evgenybardin.github.io//feed.xml" rel="self" >
     <link href="https://evgenybardin.github.io/" >
-    <updated>2026-04-07T07:07:30Z</updated>
+    <updated>2026-04-07T07:07:51Z</updated>
     <id>https://evgenybardin.github.io/</id>
-        <entry>
-            <title>
-                EDI X5. Пользовательская инструкция работе с заказами Х5
-                
-            </title>
-            <updated>2026-04-07T07:07:23Z</updated>
-            <id>https://evgenybardin.github.io//</id>
-            <content type="html">
-                &lt;p&gt;+------------+--------------+------------------------------------+-----------------------+&lt;br /&gt;
-| &lt;strong&gt;Версия&lt;/strong&gt; | &lt;strong&gt;Дата&lt;/strong&gt;     | &lt;strong&gt;Авторы&lt;/strong&gt;                         | &lt;strong&gt;Комментарий&lt;/strong&gt;       |&lt;br /&gt;
-+&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;+&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;mark&gt;+&lt;/mark&gt;============&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;&lt;mark&gt;+&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;&lt;/mark&gt;=+&lt;br /&gt;
-| # 1.0      | # 16.02.2022 | #                                  | # Оригинальная версия |&lt;br /&gt;
-|            |              |                                    |                       |&lt;br /&gt;
-|            |              | # Зейналова У. &lt;em&gt;Консультант SAP&lt;/em&gt;   |                       |&lt;br /&gt;
-+------------+--------------+------------------------------------+-----------------------+&lt;/p&gt;
-&lt;h1 id=&quot;vvedenie&quot; tabindex=&quot;-1&quot;&gt;Введение&lt;/h1&gt;
-&lt;p&gt;Наша система SAP не умеет работать с обновления заказов клиентов,&lt;br /&gt;
-которые приходят через EDI-сообщение ORDER, поэтому на каждое обновление&lt;br /&gt;
-заказа клиента в нашей системе SAP создается новый сбытовой заказ,&lt;br /&gt;
-который мы называем «дубликатом».&lt;/p&gt;
-&lt;p&gt;В связи с тем, что с 14.02.2022 в Х5 через EDI-сообщение ORDRSP&lt;br /&gt;
-(подтверждение заказа) мы стали передавать 2 статуса заказа &lt;em&gt;«уточнен»&lt;/em&gt;&lt;br /&gt;
-и &lt;em&gt;«отклонен»&lt;/em&gt;, необходимо пересмотреть логику обработки заказов&lt;br /&gt;
-сотрудниками ОРиПП.&lt;/p&gt;
-&lt;p&gt;Если для всех позиций заказов, которые мы считаем дубликатами,&lt;br /&gt;
-устанавливать причину отклонения, то в Х5 будет отправлен ORDRSP со&lt;br /&gt;
-статусом «отклонен». Последний отправленный статус к заказу Х5 затирает&lt;br /&gt;
-предыдущие статусы, поэтому статус дубликата «отклонен» затирает ранее&lt;br /&gt;
-отправленный статус первоначально созданного заказа «уточнен». Таким&lt;br /&gt;
-образом Х5 считает, что заказ отменен.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Справочно:&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Статус &lt;em&gt;«Уточнен»&lt;/em&gt; - если в заказ мы внесли изменения, например,&lt;br /&gt;
-изменили дату поставки, количество, для какой-то из позиций установили&lt;br /&gt;
-причину отклонения Z1/ Z2/ Z3.&lt;/p&gt;
-&lt;p&gt;Статус &lt;em&gt;«Отклонен»&lt;/em&gt; - для всех позиций в заказе установлена одна из&lt;br /&gt;
-причин отклонения Z1/ Z2/ Z3.&lt;/p&gt;
-&lt;h1 id=&quot;opisanie-proczessa&quot; tabindex=&quot;-1&quot;&gt;Описание процесса&lt;/h1&gt;
-&lt;p&gt;15.02.2022 утверждена внутренняя схема обработки заказов дубликатов,&lt;br /&gt;
-согласно которой сотрудники ОРиПП в системе SAP удаляют&lt;br /&gt;
-заказы-дубликаты.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Как удалить заказ в системе SAP:&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;1. Зайти в заказ через транзакцию VA02 или при массовой обработке через&lt;br /&gt;
-транзакцию ZSD_ORD_MASSCH.&lt;/p&gt;
-&lt;p&gt;2. Не снимая блокировку «93 EDI» с поля БлокирПоставки в меню выбрать:&lt;br /&gt;
-«Торговый документ» -&amp;gt; «удалить».&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Как переотправить ORDRSP (подтверждение заказа» в Х5:&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;1. Зайти в заказ через транзакцию VA02.&lt;/p&gt;
-&lt;p&gt;2. В меню выбрать» «Дополнительная информация» -&amp;gt; «Выходные документы»&lt;br /&gt;
--&amp;gt; «Заголовок» -&amp;gt; «Обработать»:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://evgenybardin.github.io/media/image1.png&quot; alt=&quot;&quot; /&gt;{width=&amp;quot;6.4843908573928255in&amp;quot;&lt;br /&gt;
-height=&amp;quot;3.047334864391951in&amp;quot;}&lt;/p&gt;
-&lt;p&gt;На экране отобразиться табличка:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://evgenybardin.github.io/media/image2.png&quot; alt=&quot;&quot; /&gt;{width=&amp;quot;7.268055555555556in&amp;quot;&lt;br /&gt;
-height=&amp;quot;2.363888888888889in&amp;quot;}&lt;/p&gt;
-&lt;p&gt;Обращаем внимание, что добавилась строчка с выходным документом ZORC с&lt;br /&gt;
-желтым светофором, нажмите дискету. После сохранения заказа Х5 через&lt;br /&gt;
-какое-то время (примерно минут 10) получит новое подтверждение заказа.&lt;/p&gt;
-
-            </content>
-            <link href="https://evgenybardin.github.io//" >
-        </entry>
         <entry>
             <title>
                 3. Приемка из производства
                 
             </title>
-            <updated>2026-04-07T07:07:23Z</updated>
+            <updated>2026-04-07T07:07:39Z</updated>
             <id>https://evgenybardin.github.io//3. Приемка из производства/</id>
             <content type="html">
                 &lt;hr /&gt;
